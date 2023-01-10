@@ -1,0 +1,606 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"StatusCodes": {
+				"enum": [
+					100,
+					101,
+					102,
+					200,
+					201,
+					202,
+					203,
+					204,
+					205,
+					206,
+					207,
+					300,
+					301,
+					302,
+					303,
+					304,
+					305,
+					307,
+					308,
+					400,
+					401,
+					402,
+					403,
+					404,
+					405,
+					406,
+					407,
+					408,
+					409,
+					410,
+					411,
+					412,
+					413,
+					414,
+					415,
+					416,
+					417,
+					418,
+					419,
+					420,
+					421,
+					422,
+					423,
+					424,
+					428,
+					429,
+					431,
+					451,
+					500,
+					501,
+					502,
+					503,
+					504,
+					505,
+					507,
+					511
+				],
+				"type": "number"
+			},
+			"AppError": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"statusCode": {
+						"$ref": "#/components/schemas/StatusCodes"
+					}
+				},
+				"required": [
+					"message",
+					"statusCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PingResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TodoModel": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"completed": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"title",
+					"description",
+					"completed"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateTodoRequest": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SimpleUserResponse": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"lastName",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserSignUpRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"lastName",
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenResponse": {
+				"properties": {
+					"accessToken": {
+						"type": "string"
+					},
+					"refreshToken": {
+						"type": "string"
+					},
+					"user": {
+						"$ref": "#/components/schemas/SimpleUserResponse"
+					}
+				},
+				"required": [
+					"accessToken",
+					"refreshToken",
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserSignInRequest": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserModel": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"lastName",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "presentio_cards_server",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Juan Daniel Ozuna"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/api/ping": {
+			"get": {
+				"operationId": "GetMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PingResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Any Error thrown by app",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppError"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Ping"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/ping/error": {
+			"get": {
+				"operationId": "GetError",
+				"responses": {
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "Any Error thrown by app",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppError"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Ping"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/todo": {
+			"get": {
+				"operationId": "GetTodos",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/TodoModel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Any Error thrown by app",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppError"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateTodo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TodoModel"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Any Error thrown by app",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppError"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateTodoRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/todo/{id}": {
+			"get": {
+				"operationId": "GetTodoById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TodoModel"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Any Error thrown by app",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppError"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/api/todo/{id}/toggle": {
+			"put": {
+				"operationId": "UpdateTodoById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TodoModel"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Any Error thrown by app",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppError"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/api/user/signUp": {
+			"post": {
+				"operationId": "SignUp",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SimpleUserResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Any Error thrown by app",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppError"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserSignUpRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/user/signIn": {
+			"post": {
+				"operationId": "SignIn",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TokenResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Any Error thrown by app",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppError"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserSignInRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/user/getUserByEmail/{email}": {
+			"get": {
+				"operationId": "GetUserByEmail",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserModel"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Any Error thrown by app",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppError"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "email",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

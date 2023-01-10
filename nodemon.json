@@ -1,0 +1,4 @@
+{
+  "watch": ["main.ts", "src/"],
+  "ext": "ts"
+}
